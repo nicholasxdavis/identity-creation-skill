@@ -1,0 +1,49 @@
+# Publishes the wobnimo package to npm from main only, through npm trusted
+# publishing: GitHub's OIDC identity replaces a stored token, and every
+# release carries a provenance statement. Runs on a published GitHub release,
+# or by hand from the Actions tab.
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name == 'release' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # proves this workflow's identity to npm, and signs provenance
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      # trusted publishing needs npm 11.5.1 or later; Node 22 ships with npm 10
+      - run: npm install -g npm@11.21.1
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build -w wobnimo
+      # a release for a version that's already on npm is a no-op, not a failure
+      - name: Check whether this version is already published
+        id: check
+        run: |
+          v=$(node -p "require('./packages/wobnimo/package.json').version")
+          if npm view "wobnimo@$v" version > /dev/null 2>&1; then
+            echo "wobnimo@$v is already on npm, skipping"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - run: npm publish -w wobnimo --provenance
+        if: steps.check.outputs.skip != 'true'

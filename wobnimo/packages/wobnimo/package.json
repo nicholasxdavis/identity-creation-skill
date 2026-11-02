@@ -1,0 +1,86 @@
+{
+  "name": "wobnimo",
+  "version": "0.3.0-blacnova.0",
+  "private": true,
+  "description": "Blacnova fork of wobnimo: living 3D mascots for product UIs. Local skill + CLI, no npm publish or skill auto-update.",
+  "keywords": [
+    "mascot",
+    "animation",
+    "avatar",
+    "character",
+    "webgl",
+    "blacnova"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "./dist/element.js",
+    "./dist/cdn.js"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./characters": {
+      "types": "./dist/characters/index.d.ts",
+      "import": "./dist/characters/index.js"
+    },
+    "./characters/*": {
+      "types": "./dist/characters/*.d.ts",
+      "import": "./dist/characters/*.js"
+    },
+    "./element": {
+      "types": "./dist/element.d.ts",
+      "import": "./dist/element.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "wobnimo": "./dist/cli.js"
+  },
+  "unpkg": "./dist/wobnimo.js",
+  "jsdelivr": "./dist/wobnimo.js",
+  "files": [
+    "dist",
+    "AGENTS.md",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "typesVersions": {
+    "*": {
+      "characters": [
+        "./dist/characters/index.d.ts"
+      ],
+      "characters/*": [
+        "./dist/characters/*.d.ts"
+      ],
+      "element": [
+        "./dist/element.d.ts"
+      ],
+      "react": [
+        "./dist/react.d.ts"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "wobnimo",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "node scripts/build-playground.mjs",
+    "posters": "node scripts/posters.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/react": "^18.3.12",
+    "esbuild": "^0.25.12",
+    "playwright-core": "1.48.2",
+    "tsup": "^8.5.1",
+    "typescript": "5.6.3"
+  },
+  "overrides": {
+    "tsup": {
+      "esbuild": "0.28.2"
+    }
+  }
+}
