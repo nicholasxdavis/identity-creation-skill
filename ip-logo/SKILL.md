@@ -5,6 +5,8 @@ description: Generate simple, cute, professional square IP character marks that 
 
 # IP as Logo
 
+Adapted from [s1dashu/ip-as-logo-skill](https://github.com/s1dashu/ip-as-logo-skill). Blacnova path: centered professional SaaS mark plus transparent PNG export. See [../ATTRIBUTION.md](../ATTRIBUTION.md).
+
 Create the simplest possible cute IP character: a compact, lovable professional symbol that stays recognizable at `32 × 32`, not a detailed illustration. Final deliverable is a **centered transparent PNG**.
 
 ## Workflow
